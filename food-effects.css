@@ -1,0 +1,894 @@
+.dfe-icon-wrap {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:30px;
+    height:30px;
+    margin:0 3px;
+    vertical-align:middle;
+}
+.dfe-icon {
+    box-sizing:border-box;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:28px;
+    height:28px;
+    margin:0;
+    padding:0;
+    line-height:1;
+    font-size:20px;
+    font-family:inherit;
+    background:transparent;
+    border:0;
+    color:inherit;
+    vertical-align:middle;
+    cursor:pointer;
+}
+.dfe-overlay {
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    z-index:999999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:12px;
+}
+.dfe-panel {
+    box-sizing:border-box;
+    width:min(720px,100%);
+    max-height:88vh;
+    display:flex;
+    flex-direction:column;
+    background:var(--background,#242424);
+    color:var(--text-color,#eee);
+    border:1px solid #777;
+    border-radius:10px;
+    box-shadow:0 8px 30px #0009;
+}
+.dfe-head {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:12px 16px;
+    border-bottom:1px solid #777;
+}
+.dfe-close {
+    font-size:26px;
+    background:transparent;
+    border:0;
+    color:inherit;
+    cursor:pointer;
+}
+.dfe-tabs {
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+    padding:10px 12px;
+    border-bottom:1px solid #7775;
+    flex-shrink:0;
+}
+.dfe-tab {
+    flex-shrink:0;
+    padding:5px 9px;
+    border:1px solid #8887;
+    border-radius:6px;
+    background:transparent;
+    color:inherit;
+    cursor:pointer;
+}
+.dfe-tab.is-active {
+    border-color:currentColor;
+    font-weight:bold;
+    background:#8882;
+}
+.dfe-body {
+    overflow:auto;
+    padding:12px 14px;
+}
+.dfe-section {
+    margin-bottom:18px;
+}
+.dfe-section-title {
+    font-size:1em;
+    margin:2px 0 10px;
+}
+.dfe-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
+    gap:10px;
+}
+.dfe-card {
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:5px;
+    padding:10px 7px;
+    border:1px solid #8887;
+    border-radius:8px;
+    text-align:center;
+    background:#8881;
+}
+/* 類型分頁與分類標題共用低調左側細線，不改動原有排版尺寸。 */
+.dfe-tab.dfe-type-customized {
+    box-shadow: inset 3px 0 0 rgba(110, 150, 190, .65);
+}
+.dfe-section-title.dfe-type-customized {
+    box-shadow: inset 3px 0 0 rgba(110, 150, 190, .65);
+    padding-left: 7px;
+}
+/* 個別食物有自訂效果時，以淡色左側細線提示；不新增圖示或改動卡片尺寸。 */
+.dfe-card.dfe-card-customized {
+    box-shadow: inset 3px 0 0 rgba(110, 150, 190, .65);
+}
+.dfe-food-icon {
+    font-size:30px;
+    line-height:1.4;
+}
+.dfe-food-name {
+    width:100%;
+    overflow-wrap:anywhere;
+    font-weight:600;
+    font-size:.9em;
+}
+.dfe-count {
+    opacity:.8;
+    font-size:.82em;
+}
+.dfe-card-actions {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-top:auto;
+}
+.dfe-info-btn {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:28px;
+    height:28px;
+    margin:0;
+    padding:0;
+    border:0;
+    background:transparent;
+    color:inherit;
+    font:inherit;
+    font-size:18px;
+    line-height:1;
+    cursor:pointer;
+}
+.dfe-eat {
+    padding:5px 10px;
+    cursor:pointer;
+}
+.dfe-details {
+    margin:10px 0 0;
+    padding:12px;
+    border:1px solid #8887;
+    border-radius:8px;
+    background:#8882;
+}
+.dfe-detail-meta {
+    opacity:.8;
+    margin:5px 0 8px;
+    font-size:.9em;
+}
+.dfe-detail-effects {
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+}
+.dfe-effect-chip {
+    border:1px solid #8887;
+    border-radius:5px;
+    padding:3px 7px;
+    font-size:.85em;
+}
+.dfe-message {
+    padding:8px 14px;
+    margin:0;
+    min-height:2em;
+    font-size:.9em;
+}
+@media (max-width:420px) {
+    .dfe-grid { grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:6px;
+    } .dfe-card { padding:8px 4px;
+    } .dfe-food-icon { font-size:25px;
+    };
+}
+
+/* 在網格中保留原版圖示輸出，同時避免食物卡片被撐大。 */
+.dfe-food-icon {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:36px;
+    max-width:100%;
+}
+.dfe-food-icon img {
+    width:32px;
+    height:32px;
+    max-width:100%;
+    object-fit:contain;
+    image-rendering:pixelated;
+}
+
+/* 實際狀態變化與食物描述分開顯示。 */
+.dfe-status-bars {
+    flex-shrink:0;
+    max-height:190px;
+    overflow-y:auto;
+    padding:8px 14px;
+    border-top:1px solid #8885;
+}
+.dfe-status-bars:empty {
+    display:none;
+}
+.dfe-status-heading {
+    display:block;
+    margin-bottom:6px;
+    font-size:.9em;
+}
+.dfe-status-row {
+    margin:5px 0 9px;
+}
+.dfe-status-text {
+    font-size:.82em;
+    margin-bottom:4px;
+}
+.dfe-status-track {
+    width:100%;
+    height:9px;
+    border-radius:9px;
+    overflow:hidden;
+    background:#8885;
+}
+.dfe-status-fill {
+    height:100%;
+    border-radius:9px;
+    background:#55a5ca;
+    transition:width .65s ease-out;
+}
+.dfe-eat:disabled {
+    opacity:.4;
+    cursor:not-allowed;
+}
+
+/* v0.2.0：持續顯示的精簡狀態面板與清楚易讀的回饋文字。 */
+.dfe-status-bars {
+    max-height:none;
+    overflow:visible;
+    padding:10px 14px;
+    border-top:0;
+    border-bottom:1px solid #8885;
+}
+.dfe-status-grid {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:9px 14px;
+}
+.dfe-mini-status {
+    min-width:0;
+}
+.dfe-mini-top {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:6px;
+    font-size:.88em;
+    margin-bottom:4px;
+}
+.dfe-mini-value {
+    white-space:nowrap;
+    font-variant-numeric:tabular-nums;
+}
+.dfe-status-track {
+    height:10px;
+}
+.dfe-status-fill {
+    transition:width .7s ease-out;
+}
+.dfe-fill-tiredness {
+    background:#e6aa55;
+}
+.dfe-fill-stress {
+    background:#d77d69;
+}
+.dfe-fill-trauma {
+    background:#bb77ac;
+}
+.dfe-fill-arousal {
+    background:#d98ab7;
+}
+.dfe-fill-drunk {
+    background:#9678c5;
+}
+.dfe-fill-intake {
+    background:#65ad84;
+}
+.dfe-positive {
+    color:#73c9a1;
+}
+.dfe-negative {
+    color:#e6a083;
+}
+.dfe-intake-summary {
+    font-size:.82em;
+    opacity:.85;
+    margin-top:8px;
+}
+.dfe-message {
+    font-size:1.05em;
+    line-height:1.55;
+    min-height:2.5em;
+}
+.dfe-message-warning {
+    color:#f0b276;
+    font-weight:600;
+}
+.dfe-feedback-effect {
+    display:inline-block;
+    margin:3px 4px;
+    padding:2px 8px;
+    border-radius:6px;
+    font-size:1em;
+    font-weight:600;
+}
+.dfe-effect-positive {
+    color:#78d4ad;
+    background:#3e98602a;
+    border:1px solid #5db98a77;
+}
+.dfe-effect-negative {
+    color:#efa38f;
+    background:#c15c4424;
+    border:1px solid #d47b6777;
+}
+.dfe-eat-blocked {
+    border:1px solid #d6a15a;
+    color:#f0b276;
+    background:transparent;
+    font-size:.86em;
+    cursor:pointer;
+}
+.dfe-effect-chip {
+    font-size:.98em;
+    padding:5px 9px;
+}
+@media(max-width:420px) {
+ .dfe-status-bars {
+    padding:8px 10px;
+}
+ .dfe-status-grid {
+    gap:7px 9px;
+}
+ .dfe-mini-top {
+    font-size:.75em;
+}
+ .dfe-message {
+    font-size:.96em;
+}
+ .dfe-eat-blocked {
+    padding:4px;
+    font-size:.72em;
+}
+}
+
+.dfe-detail-fullness {
+    font-size:1em;
+    font-weight:600;
+    color:#75caa4;
+    margin:6px 0;
+}
+
+/* v0.2.3：雙層飽食度顯示；只有未被占用的額度可再次使用。 */
+.dfe-intake-row {
+    grid-column:1 / -1;
+}
+.dfe-intake-track {
+    height:16px;
+    background:#7775;
+}
+.dfe-intake-reserved {
+    height:100%;
+    background:#bd9b78;
+    transition:width .7s ease-out;
+    overflow:hidden;
+    border-radius:inherit;
+}
+.dfe-intake-undigested {
+    height:100%;
+    background:#e58c45;
+    transition:width .7s ease-out;
+    border-radius:inherit;
+}
+.dfe-intake-summary {
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:5px 13px;
+}
+.dfe-intake-legend {
+    white-space:nowrap;
+}
+.dfe-intake-legend::before {
+    content:'';
+    display:inline-block;
+    width:9px;
+    height:9px;
+    margin-right:5px;
+    border-radius:2px;
+    background:#7775;
+}
+.dfe-intake-legend:nth-child(1)::before {
+    background:#e58c45;
+}
+.dfe-intake-legend:nth-child(2)::before {
+    background:#bd9b78;
+}
+.dfe-intake-next {
+    width:100%;
+    opacity:.8;
+}
+
+/* v0.2.4：符合遊戲敘事風格且易讀的食用回饋。 */
+.dfe-feedback-narrative {
+    display:block;
+    font-size:1.08em;
+    line-height:1.65;
+    margin-bottom:5px;
+}
+
+/* v0.2.5：設定介面。 */
+.dfe-gear-btn {
+    border:0;
+    background:transparent;
+    color:inherit;
+    font-size:20px;
+    padding:2px;
+    cursor:pointer;
+}
+.dfe-editor-host:empty {
+    display:none;
+}
+.dfe-editor-backdrop {
+    position:fixed;
+    inset:0;
+    z-index:2147483647;
+    background:#0009;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:12px;
+}
+.dfe-editor {
+    box-sizing:border-box;
+    width:min(520px,100%);
+    max-height:90vh;
+    overflow:auto;
+    border:1px solid #8888;
+    border-radius:12px;
+    padding:16px;
+    background:#25232a;
+    color:#f4f1ed;
+    box-shadow:0 10px 35px #0008;
+}
+.dfe-editor-head {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    font-size:1.15em;
+}
+.dfe-editor-close {
+    font-size:24px;
+    border:0;
+    background:transparent;
+    color:inherit;
+    cursor:pointer;
+}
+.dfe-editor-hint {
+    font-size:.88em;
+    opacity:.85;
+    line-height:1.5;
+}
+.dfe-editor-fields {
+    display:grid;
+    gap:12px;
+}
+.dfe-editor-field {
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+}
+.dfe-editor-input {
+    box-sizing:border-box;
+    max-width:170px;
+    min-width:75px;
+    padding:6px;
+    color:inherit;
+    background:#44414b;
+    border:1px solid #aaa7;
+    border-radius:5px;
+}
+.dfe-editor-effects {
+    display:grid;
+    gap:7px;
+}
+.dfe-editor-effect {
+    display:grid;
+    grid-template-columns:24px 1fr 95px;
+    align-items:center;
+    gap:7px;
+}
+.dfe-editor-effect .dfe-editor-input {
+    width:100%;
+}
+.dfe-editor-actions {
+    display:flex;
+    justify-content:flex-end;
+    gap:12px;
+    margin-top:16px;
+}
+.dfe-editor-actions button {
+    padding:7px 12px;
+    cursor:pointer;
+}
+.dfe-editor-save {
+    background:#417f65;
+    color:white;
+    border-radius:5px;
+}
+
+/* 參數說明：按一下顯示，再按一下或點擊其他區域關閉。 */
+.dfe-editor-field-name,.dfe-editor-effect-name{display:inline-flex;align-items:center;gap:5px;flex-wrap:wrap}
+.dfe-help-holder{display:inline-flex;position:relative;align-items:center;vertical-align:middle}
+.dfe-help-button{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;padding:0;border:1px solid currentColor;border-radius:50%;font-size:11px;line-height:1;cursor:pointer;background:transparent;color:inherit;opacity:.8}
+.dfe-help-button:hover,.dfe-help-button:focus-visible{opacity:1}
+.dfe-help-popup{position:absolute;z-index:100;top:calc(100% + 7px);left:50%;transform:translateX(-50%);width:min(300px,75vw);box-sizing:border-box;padding:10px 12px;border:1px solid #777;border-radius:8px;background:#202127;color:#f4f4f4;box-shadow:0 5px 20px #0008;font-size:12px;line-height:1.6;font-weight:normal;white-space:normal;text-align:left;pointer-events:auto}
+.dfe-help-popup[hidden]{display:none!important}
+.dfe-help-line{display:block}
+.dfe-help-line+.dfe-help-line{margin-top:6px}
+
+/* Portal 浮層：脫離設定視窗的 overflow 裁切區。 */
+.dfe-help-popup.dfe-help-portal{position:fixed;z-index:2147483647;transform:none;box-sizing:border-box;overflow-y:auto;overscroll-behavior:contain}
+
+/* 技能增益狀態分頁 */
+.dfe-buff-note{opacity:.8;margin:8px 0 12px;font-size:.9em}
+.dfe-buff-card{border:1px solid #7778;border-radius:6px;padding:10px 12px;margin:8px 0;background:#7771}
+.dfe-buff-heading{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.dfe-buff-active{color:#79d6a0;font-weight:bold}
+.dfe-buff-inactive,.dfe-buff-time,.dfe-buff-skills{opacity:.75}
+.dfe-buff-time{margin-top:5px}
+.dfe-buff-skills{font-size:.8em;overflow-wrap:anywhere;margin-top:5px}
+.dfe-buff-refresh{margin:10px 0;padding:7px 12px;cursor:pointer}
+
+/* v0.2.18: 上方狀態與下方食物各自保留獨立分頁選擇。 */
+.dfe-status-tabs{display:flex;gap:6px;flex-wrap:wrap;padding:8px 10px 4px}
+.dfe-status-tab{cursor:pointer;padding:5px 12px;border:1px solid #8887;border-radius:5px;background:transparent;color:inherit}
+.dfe-status-tab.is-active{background:#547eae55;border-color:#8cb6e4}
+.dfe-status-buffs{padding:0 10px 8px;max-height:260px;overflow-y:auto}
+.dfe-status-bars[hidden],.dfe-status-buffs[hidden]{display:none!important}
+
+/* v0.2.19: 效果清單限制高度，獨立捲動，不再撐長設定視窗。 */
+.dfe-editor-effects {
+    max-height: min(42vh, 340px);
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    padding: 4px 6px 4px 2px;
+    align-content: start;
+    border: 1px solid #8885;
+    border-radius: 6px;
+}
+.dfe-editor-effects:focus-visible { outline: 2px solid #8cb6e4; outline-offset: 2px; }
+@media (max-height: 560px) {
+    .dfe-editor-effects { max-height: 30vh; }
+}
+
+/* v0.2.24：食物庫存與食用回饋使用獨立的版面區域。 */
+.dfe-overlay {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    align-items: safe center;
+}
+.dfe-panel {
+    min-height: 0;
+    max-height: calc(100dvh - 24px);
+    overflow: hidden;
+}
+.dfe-head, .dfe-status-tabs, .dfe-status-bars, .dfe-status-buffs {
+    flex-shrink: 0;
+}
+.dfe-inventory-section {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 110px;
+    min-width: 0;
+    overflow: hidden;
+    border-top: 1px solid #8886;
+}
+.dfe-inventory-section .dfe-tabs {
+    flex: 0 0 auto;
+}
+.dfe-inventory-section .dfe-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+}
+.dfe-feedback-section {
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    min-width: 0;
+    border-top: 1px solid #8888;
+    background: #8881;
+    padding: 0 2px;
+}
+.dfe-feedback-section .dfe-message {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 10px 12px;
+    overflow: visible;
+    overflow-wrap: anywhere;
+    word-break: normal;
+    white-space: normal;
+    line-height: 1.55;
+}
+.dfe-feedback-section .dfe-feedback-narrative {
+    overflow-wrap: anywhere;
+    white-space: normal;
+}
+@media (max-height: 620px) {
+    .dfe-status-buffs { max-height: min(24vh, 150px); }
+    .dfe-inventory-section { min-height: 72px; }
+    .dfe-feedback-section .dfe-message { padding: 7px 10px; }
+}
+
+/* v0.2.26：保留狀態與技能增益分頁；僅調整下方的食用回饋區。 */
+.dfe-feedback-section .dfe-feedback-effect {
+    display: inline-block;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-wrap: anywhere;
+    white-space: normal;
+    vertical-align: middle;
+}
+.dfe-feedback-section .dfe-message {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    white-space: normal;
+}
+
+/* v0.2.27：精簡技能增益回饋；持續時間顯示於綠色標籤外。 */
+.dfe-feedback-buff-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 9px; max-width: 100%; min-width: 0; }
+.dfe-feedback-buff-row .dfe-feedback-effect { max-width: 100%; overflow-wrap: anywhere; }
+.dfe-feedback-buff-remaining { font-size: .88em; opacity: .8; white-space: normal; overflow-wrap: anywhere; }
+
+/* 類型設定視窗：沿用清單的淡色左側細線。 */
+.dfe-editor-head .dfe-type-customized {
+    box-shadow: inset 3px 0 0 rgba(110, 150, 190, .65);
+    padding-left: 8px;
+}
+.dfe-editor-input.dfe-type-customized {
+    box-shadow: inset 3px 0 0 rgba(110, 150, 190, .65);
+}
+
+/* v0.2.40：主介面類別 Tab 的自訂標記，使用獨立偽元素避免主題覆蓋陰影。 */
+.dfe-tabs .dfe-tab.dfe-type-customized {
+    position: relative;
+    box-shadow: none;
+}
+.dfe-tabs .dfe-tab.dfe-type-customized::before {
+    content: "";
+    position: absolute;
+    left: 1px;
+    top: 5px;
+    bottom: 5px;
+    width: 3px;
+    border-radius: 3px;
+    background: rgba(110, 150, 190, .85);
+    pointer-events: none;
+}
+
+/* v0.2.47：主視窗維持固定的響應式高度，切換狀態頁籤不再改變外框尺寸。 */
+.dfe-panel {
+    height: min(760px, 88vh);
+    height: min(760px, 88dvh);
+    max-height: calc(100vh - 24px);
+    max-height: calc(100dvh - 24px);
+}
+/* 技能增益內容在原有區域捲動，不再透過手動更新按鈕刷新。 */
+.dfe-status-buffs { min-height: 0; }
+
+/* v0.2.48：限制上方進食狀態與技能增益的高度，將空間保留給食物操作。 */
+.dfe-status-bars,
+.dfe-status-buffs {
+    box-sizing: border-box;
+    flex: 0 1 auto;
+    min-height: 0;
+    max-height: min(150px, 22dvh);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+}
+.dfe-inventory-section {
+    flex: 1 1 auto;
+    min-height: min(220px, 40dvh);
+}
+@media (max-height: 620px) {
+    .dfe-status-bars,
+    .dfe-status-buffs { max-height: min(100px, 18dvh); }
+    .dfe-inventory-section { min-height: min(130px, 35dvh); }
+}
+
+/* v0.2.49：限制底部食用結果高度，避免大量效果擠壓中間的食物操作區。 */
+.dfe-feedback-section {
+    flex: 0 1 auto;
+    min-height: 0;
+    max-height: min(150px, 24dvh);
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+}
+.dfe-feedback-section .dfe-message {
+    overflow: visible;
+}
+@media (max-height: 620px) {
+    .dfe-feedback-section { max-height: min(100px, 20dvh); }
+}
+
+/* v0.2.50：依視窗高度分配底部食用結果空間，保留中間進食操作區。 */
+.dfe-feedback-section {
+    max-height: clamp(150px, 34dvh, 280px);
+    flex: 0 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+}
+@media (max-height: 620px) {
+    .dfe-feedback-section { max-height: min(160px, 27dvh); }
+}
+@media (min-height: 900px) {
+    .dfe-feedback-section { max-height: min(320px, 36dvh); }
+}
+
+/* v0.2.51：將底部食用回饋固定分配主視窗高度的比例。
+ * 先前只有 max-height，Flex 仍會依內容壓縮回饋區，導致畫面只剩一行。
+ * 使用不可收縮的 flex-basis，讓結果區擁有穩定空間；超出時獨立捲動。
+ */
+.dfe-panel > .dfe-feedback-section {
+    box-sizing: border-box;
+    flex: 0 0 24%;
+    height: 24%;
+    min-height: 0;
+    max-height: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+}
+.dfe-panel > .dfe-inventory-section {
+    flex: 1 1 0%;
+    min-height: 0;
+}
+@media (max-height: 620px) {
+    .dfe-panel > .dfe-feedback-section {
+        flex-basis: 20%;
+        height: 20%;
+        max-height: none;
+    }
+}
+
+/* v0.2.52：提高主視窗可用高度，沿用原有中間清單與底部回饋比例。 */
+.dfe-panel {
+    height: min(980px, 94vh);
+    height: min(980px, 94dvh);
+    max-height: calc(100vh - 16px);
+    max-height: calc(100dvh - 16px);
+}
+
+/* v0.2.53：以食物名稱取代獨立食用按鈕，保持文字式操作。 */
+.dfe-card .dfe-food-eat-name {
+    appearance:none;
+    -webkit-appearance:none;
+    display:block;
+    width:100%;
+    min-height:1.5em;
+    margin:0;
+    padding:0;
+    border:0;
+    border-radius:0;
+    background:transparent;
+    box-shadow:none;
+    color:inherit;
+    font:inherit;
+    font-size:.9em;
+    font-weight:600;
+    line-height:1.4;
+    text-align:center;
+    overflow-wrap:anywhere;
+    cursor:pointer;
+}
+.dfe-card .dfe-food-eat-name:not(:disabled):hover,
+.dfe-card .dfe-food-eat-name:not(:disabled):focus-visible {
+    color:var(--link-color, #a9c8e8);
+    text-decoration:underline;
+}
+.dfe-card .dfe-food-eat-name:disabled {
+    cursor:not-allowed;
+    opacity:1;
+}
+/* 只淡化食物資訊，不讓整張卡片失去互動能力。 */
+.dfe-card.dfe-card-unavailable .dfe-food-icon,
+.dfe-card.dfe-card-unavailable .dfe-food-name,
+.dfe-card.dfe-card-unavailable .dfe-count {
+    opacity:.4;
+}
+.dfe-card.dfe-card-unavailable {
+    background:rgba(128,128,128,.045);
+}
+.dfe-card .dfe-unavailable-reason {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:22px;
+    height:28px;
+    padding:0;
+    margin:0;
+    border:0;
+    background:transparent;
+    box-shadow:none;
+    color:inherit;
+    opacity:.72;
+    font:inherit;
+    font-weight:700;
+    cursor:help;
+}
+.dfe-card .dfe-unavailable-reason:hover,
+.dfe-card .dfe-unavailable-reason:focus-visible { opacity:1; }
+
+/* v0.2.54：將底部食用結果比例由 24% 調為 18%，讓中間食物操作區更寬裕。 */
+.dfe-panel > .dfe-feedback-section {
+    flex: 0 0 18%;
+    height: 18%;
+    max-height: none;
+    min-height: 0;
+    overflow-y: auto;
+}
+@media (max-height: 620px) {
+    .dfe-panel > .dfe-feedback-section {
+        flex-basis: 16%;
+        height: 16%;
+    }
+}
+
+/* v0.2.55：底部釋出的空間優先交給上方狀態 Bar，不擴張食物操作區。 */
+.dfe-panel > .dfe-status-bars:not([hidden]),
+.dfe-panel > .dfe-status-buffs:not([hidden]) {
+    box-sizing: border-box;
+    flex: 0 0 21%;
+    height: 21%;
+    min-height: 0;
+    max-height: none;
+    overflow-y: auto;
+}
+@media (max-height: 620px) {
+    .dfe-panel > .dfe-status-bars:not([hidden]),
+    .dfe-panel > .dfe-status-buffs:not([hidden]) {
+        flex-basis: 17%;
+        height: 17%;
+    }
+}

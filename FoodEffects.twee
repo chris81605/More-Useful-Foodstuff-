@@ -1,0 +1,4 @@
+:: DFEFoodIcon [widget]
+<<widget "DFEFoodIcon">>
+    <span class="dfe-icon-wrap"><button type="button" class="dfe-icon" title="食物背包" aria-label="食物背包" onclick="setup.FoodEffectsExpanded.open()">🍽️</button></span>
+<</widget>>
