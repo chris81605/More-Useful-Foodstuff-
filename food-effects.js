@@ -18,6 +18,7 @@
         costs: Object.freeze({
             meal: 40,
             snack: 15,
+            fruit: 15,
             dessert: 20,
             drink: 10,
             erotic_drink: 15,
@@ -38,7 +39,8 @@
     // 各食物類型的預設效果；amount 會交由原版 statChange 函式處理。
     const TYPES = Object.freeze({
         meal: { label: '主食', effects: { fatigueRecovery: { amount: 25 } } },
-        snack: { label: '零食', effects: { fatigueRecovery: { amount: 8 } } },
+        snack: { label: '零食', effects: { fatigueRecovery: { amount: 8 } } },        
+        fruit: { label: '水果', effects: { fatigueRecovery: { amount: 10 } } },
         dessert: { label: '點心', effects: { fatigueRecovery: { amount: 6 }, stressRelief: { amount: 3 } } },
         drink: { label: '一般飲料', effects: { fatigueRecovery: { amount: 3 } } },
         erotic_drink: { label: '情色飲料', effects: { fatigueRecovery: { amount: 5 }, arousalIncrease: { amount: 100 } } },
@@ -168,7 +170,7 @@
             if(MEAL_WORDS.test(id))return 'meal';
             return 'snack';
         }
-        if(cat==='fruit')return 'snack';
+        if(cat==='fruit')return 'fruit';
         if(cat==='vegetable'&&!BLOCKED_VEG.has(id))return 'snack';
         return 'non_food';
     }
@@ -807,7 +809,8 @@
     const UI_ID = "dfe-overlay";
     const TYPE_ICONS = Object.freeze({
         meal: "🍲",
-        snack: "🍎",
+        snack: "🍪",
+        fruit: "🍎",
         dessert: "🍰",
         drink: "🥛",
         erotic_drink: "🍼",
