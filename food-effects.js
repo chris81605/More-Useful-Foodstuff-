@@ -19,11 +19,13 @@
             meal: 40,
             snack: 15,
             fruit: 15,
-            dessert: 20,
+            seafood: 20,
+            meat: 20,
+            dessert: 15,
             drink: 10,
             erotic_drink: 15,
             alcohol: 25,
-            non_food: 30
+            non_food: 5
         })
     });
     // 消化時間為全域模組設定，保存在遊戲存檔內；既有紀錄依目前設定重新計算。
@@ -41,11 +43,15 @@
         meal: { label: '主食', effects: { fatigueRecovery: { amount: 25 } } },
         snack: { label: '零食', effects: { fatigueRecovery: { amount: 8 } } },        
         fruit: { label: '水果', effects: { fatigueRecovery: { amount: 10 } } },
+        // 生鮮海產獨立顯示；維持原「非食物」的預設效果與攝取容量。
+        seafood: { label: '海鮮', effects: { fatigueRecovery: { amount: 5 }, stressIncrease: { amount: 3 } } },
+        // 生肉獨立分類，沿用原「非食物」的預設效果與攝取容量。
+        meat: { label: '肉類', effects: { fatigueRecovery: { amount: 5 }, stressIncrease: { amount: 3 } } },
         dessert: { label: '點心', effects: { fatigueRecovery: { amount: 6 }, stressRelief: { amount: 3 } } },
         drink: { label: '一般飲料', effects: { fatigueRecovery: { amount: 3 } } },
         erotic_drink: { label: '情色飲料', effects: { fatigueRecovery: { amount: 5 }, arousalIncrease: { amount: 100 } } },
         alcohol: { label: '酒類', effects: { fatigueRecovery: { amount: 5 }, intoxication: { amount: 60 }, traumaRelief: { amount: 30 } } },
-        non_food: { label: '非食物', effects: { fatigueRecovery: { amount: 1 }, stressIncrease: { amount: 3 } } }
+        non_food: { label: '非食物', effects: { fatigueRecovery: { amount: 1 }, stressIncrease: { amount: 10 } } }
     });
 
     // 特殊物品的預設分類；不寫入 setup.foodstuff。
@@ -171,6 +177,10 @@
             return 'snack';
         }
         if(cat==='fruit')return 'fruit';
+        // 依原版 foodstuff 分類辨識海鮮，不改變食用資格或貓化條件。
+        if(cat==='seafood')return 'seafood';
+        // 依原版分類辨識肉類，食用資格與轉化判定保持不變。
+        if(cat==='meat')return 'meat';
         if(cat==='vegetable'&&!BLOCKED_VEG.has(id))return 'snack';
         return 'non_food';
     }
@@ -811,6 +821,8 @@
         meal: "🍲",
         snack: "🍪",
         fruit: "🍎",
+        seafood: "🐟",
+        meat: "🥩",
         dessert: "🍰",
         drink: "🥛",
         erotic_drink: "🍼",
